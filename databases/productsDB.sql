@@ -35,7 +35,7 @@ CREATE TYPE aresult AS (
     original_price text,
     sale_price text,
     aDefault boolean,
-    photos aphoto []
+    photos aphoto[],
     skus asku
 );
 CREATE TABLE styles (
@@ -43,5 +43,5 @@ CREATE TABLE styles (
     results aresult[]
 );
 CREATE TABLE related (
-    int_array integer []
+    int_array integer[]
 );
