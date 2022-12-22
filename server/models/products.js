@@ -1,8 +1,8 @@
-// const db = require('./db.js')
+const db = require('./databases/productsDB.js')
 module.exports = {
   getInfo: (data, CB) => {
     db.query(
-      'SELECT * from products',
+      'SELECT * from product',
       (err, response) => {
         if (err) {
           CB(err)
@@ -26,7 +26,7 @@ module.exports = {
   }
   getRelated: (data, CB) => {
     db.query(
-      'SELECT * from styles',
+      'SELECT * from related',
       (err, response) => {
         if (err) {
           CB(err)
