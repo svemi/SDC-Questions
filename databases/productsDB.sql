@@ -9,7 +9,7 @@ CREATE TYPE afeature AS (
     aValue text
 );
 CREATE TABLE product (
-    id serial primary key,
+    id integer primary key,
     aName text,
     slogan text,
     aDescription text,
@@ -23,14 +23,14 @@ CREATE TYPE athing AS (
     size text
 );
 CREATE TYPE asku AS (
-    serial athing
+    integer athing
 );
 CREATE TYPE aphoto AS (
     thumbail_url text,
     aUrl text
 );
 CREATE TYPE aresult AS (
-    style_id serial,
+    style_id integer,
     aName text,
     original_price text,
     sale_price text,
@@ -39,7 +39,7 @@ CREATE TYPE aresult AS (
     skus asku
 );
 CREATE TABLE styles (
-    product_id serial primary key,
+    product_id integer primary key,
     results aresult[]
 );
 CREATE TABLE related (
