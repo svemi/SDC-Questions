@@ -31,7 +31,7 @@ fs.createReadStream(answersPath)
 .pipe(csv())
 .on('data', (row) => {
   let answerInsertQuery = `INSERT INTO answers (answer_id, question_id, body, date, answerer_name, reported, helpfullness) VALUES ($1, $2, $3, $4, $5, $6, $7)`;
-  pool.query(questionInsertQuery, [row.id, row.question_id, row.body, new Date(Number(row.date_written) * 1000), row.answerer_name, row.reported, row.helpful], (err, res) => {if (err) {console.log(err)}});
+  pool.query(answerInsertQuery, [row.id, row.question_id, row.body, new Date(Number(row.date_written) * 1000), row.answerer_name, row.reported, row.helpful], (err, res) => {if (err) {console.log(err)}});
 });
 
 // LOAD ANSWER PHOTOS DATA INTO PHOTOS
@@ -40,5 +40,5 @@ fs.createReadStream(answerPhotosPath)
 .pipe(csv())
 .on('data', (row) => {
   let answerPhotosInsertQuery = `INSERT INTO photos (id, answer_id, url) VALUES ($1, $2, $3)`;
-  pool.query(questionInsertQuery, [row.id, row.answer_id, row.url], (err, res) => {if (err) {console.log(err)}});
+  pool.query(answerPhotosInsertQuery, [row.id, row.answer_id, row.url], (err, res) => {if (err) {console.log(err)}});
 });
