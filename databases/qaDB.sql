@@ -21,7 +21,7 @@ CREATE TABLE questions (
   question_id serial primary key,
   product_id varchar(10),
   question_body text,
-  question_date timestamptz,
+  question_date timestamp,
   asker_name varchar(60),
   reported boolean default false,
   question_helpfullness integer default 0
@@ -29,18 +29,13 @@ CREATE TABLE questions (
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE questions TO user1;
 
--- COPY questions
--- FROM '/Users/saivemireddy/SDC/DolchyGabbana/data/questions_test.csv'
--- DELIMITER ','
--- CSV HEADER;
-
 DROP TABLE IF EXISTS answers CASCADE;
 
 CREATE TABLE answers (
   answer_id serial primary key,
   question_id serial references questions(question_id),
   body text,
-  date timestamptz,
+  date timestamp,
   answerer_name varchar(50),
   reported boolean default false,
   helpfullness integer default 0
@@ -57,8 +52,3 @@ CREATE TABLE photos (
 );
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE photos TO user1;
-
--- COPY photos
--- FROM '/Users/saivemireddy/SDC/DolchyGabbana/data/answers_photos.csv'
--- DELIMITER ','
--- CSV HEADER;
