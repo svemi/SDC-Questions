@@ -23,7 +23,7 @@ var testPath = path.join(__dirname, '/../data/questions_test.csv');
 fs.createReadStream(questionsPath)
 .pipe(csv())
 .on('data', (row) => {
-  let questionInsertQuery = `INSERT INTO questions (question_id, product_id, question_body, question_date, asker_name, reported, question_helpfullness) VALUES ($1, $2, $3, $4, $5, $6, $7)`;
+  let questionInsertQuery = `INSERT INTO questions (question_id, product_id, question_body, question_date, asker_name, reported, question_helpfulness) VALUES ($1, $2, $3, $4, $5, $6, $7)`;
   pool.query(questionInsertQuery, [row.id, row.product_id, row.body, new Date(Number(row.date_written)), row.asker_name, row.reported, row.helpful], (err, res) => {if (err) {console.log(err)}});
 });
 
@@ -32,7 +32,7 @@ fs.createReadStream(questionsPath)
 fs.createReadStream(answersPath)
 .pipe(csv())
 .on('data', (row) => {
-  let answerInsertQuery = `INSERT INTO answers (answer_id, question_id, body, date, answerer_name, reported, helpfullness) VALUES ($1, $2, $3, $4, $5, $6, $7)`;
+  let answerInsertQuery = `INSERT INTO answers (answer_id, question_id, body, date, answerer_name, reported, helpfulness) VALUES ($1, $2, $3, $4, $5, $6, $7)`;
   pool.query(answerInsertQuery, [row.id, row.question_id, row.body, new Date(Number(row.date_written)), row.answerer_name, row.reported, row.helpful], (err, res) => {if (err) {console.log(err)}});
 });
 

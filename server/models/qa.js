@@ -19,27 +19,51 @@ module.exports = {
 
   },
 
-  postQuestion: (callback) => {
+  postQuestion: (params, callback) => {
+    let postQuestionQuery = 'INSERT INTO questions (product_id, question_body, question_date, asker_name, reported, question_helpfulness) VALUES ($1, $2, $3, $4, $5, $6)';
+    pool.query(postQuestionQuery, params, callback);
 
   },
 
-  postAnswer: (callback) => {
+  postAnswer: (info, callback) => {
+    let postAnswerQuery = 'INSERT INTO answers (question_id, body, date, answerer_name, reported, helpfulness) VALUES ($1, $2, $3, $4, $5, $6)';
+    let postPhotosQuery = 'INSERT INTO photos (answer_id, url) VALUES ((SELECT answer_id FROM answers WHERE body = ($1)), $2)';
+    let [question_id, body, date, name, reported, helpful, photos] = info;
+    pool.query(postAnswerQuery, [question_id, body, date, name, reported, helpful], callback);
+    if (photos.length > 0) {
+      photos.forEach((url) => {
+        pool.query(postPhotosQuery, [body, url], callback);
+      })
+    }
+
 
   },
 
-  upvoteQuestions: (callback) => {
+  upvoteQuestions: (id,callback) => {
+    let upvoteQuestionQuery = 'UPDATE questions SET question_helpfulness = question_helpfulness + 1 WHERE question_id = ($1)';
+    pool.query(upvoteQuestionQuery, [id], callback);
 
   },
 
-  reportQuestion: (callback) => {
+  reportQuestion: (id, callback) => {
+    let reportQuestionQuery = 'UPDATE questions SET reported = true WHERE question_id = ($1)';
+    pool.query(upvoteQuestionQuery, [id], callback);
+
 
   },
 
-  upvoteAnswer: (callback) => {
+  upvoteAnswer: (id, callback) => {
+    let upvoteAnswerQuery = 'UPDATE answers SET helpfulness = helpfulness + 1 WHERE answer_id = ($1)';
+    pool.query(upvoteAnswerQuery, [id], callback);
+
 
   },
 
-  reportAnswer: (callback) => {
+  reportAnswer: (id, callback) => {
+    let reportAnswerQuery = 'UPDATE answers SET reported = true WHERE answer_id = ($1)';
+    pool.query(reportAnswerQuery, [id], callback);
+
+
 
   }
 }

@@ -24,7 +24,7 @@ CREATE TABLE questions (
   question_date timestamp,
   asker_name varchar(60),
   reported boolean default false,
-  question_helpfullness integer default 0
+  question_helpfulness integer default 0
 );
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE questions TO user1;
@@ -38,7 +38,7 @@ CREATE TABLE answers (
   date timestamp,
   answerer_name varchar(50),
   reported boolean default false,
-  helpfullness integer default 0
+  helpfulness integer default 0
 );
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE answers TO user1;
