@@ -8,13 +8,14 @@ module.exports = {
     const [product_id, count, page] = params;
     let offset = (page-1) * count;
     let getQuestionsQuery = 'SELECT * FROM questions WHERE product_id = ($1) OFFSET ($2) ROWS FETCH NEXT ($3) ROWS ONLY';
-    pool.query(getQuestionsQuery, [product_id, offset, count], callback)
+    let getQuestionsQuery2 = "SELECT q.question_id, q.question_body, q.question_date, q.asker_name, q.reported, q.question_helpfulness, json_agg(json_build_object(to_char(coalesce(a.answer_id, 0), 'FM99999999'), json_build_object('id', a.answer_id, 'body', a.body, 'date', a.date, 'answerer_name', a.answerer_name, 'reported', a.reported, 'helpfulness', a.helpfulness))) AS answers FROM questions q LEFT JOIN answers a ON q.question_id = a.question_id AND product_id = ($1) GROUP BY q.question_id OFFSET ($2) ROWS FETCH NEXT ($3) ROWS ONLY";
+    pool.query(getQuestionsQuery2, [product_id, offset, count], callback)
   },
 
   getAnswers: (params, callback) => {
     const [question_id, count, page] = params;
     let offset = (page-1) * count;
-    let getAnswersQuery = "SELECT a.answer_id, a.question_id, a.body, a.date, a.answerer_name, a.reported, a.helpfulness, COALESCE(NULLIF(array_agg(p.url),'{NULL}'),'{}') AS photos FROM answers a LEFT JOIN photos p ON a.answer_id = p.answer_id AND a.question_id = ($1) GROUP BY a.answer_id OFFSET ($2) ROWS FETCH NEXT ($3) ROWS ONLY";
+    let getAnswersQuery = "SELECT a.answer_id AS id, a.question_id, a.body, a.date, a.answerer_name, a.reported, a.helpfulness, COALESCE(NULLIF(array_agg(p.url),'{NULL}'),'{}') AS photos FROM answers a LEFT JOIN photos p ON a.answer_id = p.answer_id AND a.question_id = ($1) GROUP BY a.answer_id OFFSET ($2) ROWS FETCH NEXT ($3) ROWS ONLY";
     pool.query(getAnswersQuery, [question_id, offset, count], callback)
 
   },

@@ -9,6 +9,7 @@ module.exports = {
       let params = [product_id, count, page];
       models.qa.getQuestions(params, (err, data) => {
         if (err) {
+          console.log(err);
           res.sendStatus(400);
         } else {
           res.status(200).send(data.rows);
