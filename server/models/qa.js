@@ -14,7 +14,7 @@ module.exports = {
   getAnswers: (params, callback) => {
     const [question_id, count, page] = params;
     let offset = (page-1) * count;
-    let getAnswersQuery = 'SELECT * FROM answers where question_id = ($1) OFFSET ($2) ROWS FETCH NEXT ($3) ROWS ONLY';
+    let getAnswersQuery = "SELECT a.answer_id, a.question_id, a.body, a.date, a.answerer_name, a.reported, a.helpfulness, COALESCE(NULLIF(array_agg(p.url),'{NULL}'),'{}') AS photos FROM answers a LEFT JOIN photos p ON a.answer_id = p.answer_id AND a.question_id = ($1) GROUP BY a.answer_id OFFSET ($2) ROWS FETCH NEXT ($3) ROWS ONLY";
     pool.query(getAnswersQuery, [question_id, offset, count], callback)
 
   },
