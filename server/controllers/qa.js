@@ -7,13 +7,14 @@ module.exports = {
       // console.log(typeof product_id);
       let count = req.query.count || 5;
       let page = req.query.page || 1;
-      let params = [product_id, count, page];
+      let params = [Number(product_id), count, page];
       models.qa.getQuestions(params, (err, data) => {
         if (err) {
           // console.log(err);
           res.sendStatus(400);
         } else {
-          res.status(200).send(data.rows);
+          let obj = {product_id: product_id, results: data.rows}
+          res.status(200).send(obj);
         }
       })
 
@@ -28,7 +29,8 @@ module.exports = {
         if (err) {
           res.sendStatus(400);
         } else {
-          res.status(200).send(data.rows);
+          let obj = {question: question_id, page: page, count: count, results: data.rows}
+          res.status(200).send(obj);
         }
       })
 
