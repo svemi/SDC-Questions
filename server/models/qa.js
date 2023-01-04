@@ -21,16 +21,17 @@ module.exports = {
   },
 
   postQuestion: (params, callback) => {
-    let postQuestionQuery = 'INSERT INTO questions (product_id, question_body, question_date, asker_name, reported, question_helpfulness) VALUES ($1, $2, $3, $4, $5, $6)';
+    // console.log("MADE IT INTO MODELS");
+    let postQuestionQuery = 'INSERT INTO questions (product_id, question_body, question_date, asker_name, asker_email, reported, question_helpfulness) VALUES ($1, $2, $3, $4, $5, $6, $7)';
     pool.query(postQuestionQuery, params, callback);
 
   },
 
   postAnswer: (info, callback) => {
-    let postAnswerQuery = 'INSERT INTO answers (question_id, body, date, answerer_name, reported, helpfulness) VALUES ($1, $2, $3, $4, $5, $6)';
+    let postAnswerQuery = 'INSERT INTO answers (question_id, body, date, answerer_name, answerer_email, reported, helpfulness) VALUES ($1, $2, $3, $4, $5, $6, $7)';
     let postPhotosQuery = 'INSERT INTO photos (answer_id, url) VALUES ((SELECT answer_id FROM answers WHERE body = ($1)), $2)';
-    let [question_id, body, date, name, reported, helpful, photos] = info;
-    pool.query(postAnswerQuery, [question_id, body, date, name, reported, helpful], callback);
+    let [question_id, body, date, name, email, reported, helpful, photos] = info;
+    pool.query(postAnswerQuery, [question_id, body, date, name, email, reported, helpful], callback);
     if (photos.length > 0) {
       photos.forEach((url) => {
         pool.query(postPhotosQuery, [body, url], callback);
