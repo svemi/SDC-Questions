@@ -12,8 +12,8 @@ router.post('/qa/questions', controller.qa.post.questions )
 router.post('/qa/questions/:question_id/answers', controller.qa.post.answers )
 router.put('/qa/questions/:question_id/helpful', controller.qa.put.question.helpful )
 router.put('/qa/questions/:question_id/report', controller.qa.put.question.report )
-router.put('/qa/questions/:answer_id/helpful', controller.qa.put.answer.helpful )
-router.put('/qa/questions/:answer_id/report', controller.qa.put.answer.report )
+router.put('/qa/answers/:answer_id/helpful', controller.qa.put.answer.helpful )
+router.put('/qa/answers/:answer_id/report', controller.qa.put.answer.report )
 
 // router.get('/reviews', controller.reviews.get);
 // router.get('/reviews/meta', controller.reviews.get);
