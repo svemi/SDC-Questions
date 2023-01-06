@@ -28,6 +28,8 @@ if (cluster.isPrimary) {
   app.use(express.urlencoded({ extended: true }));
   app.use('/', router)
   app.use(express.static(path.join(__dirname, '../client/dist')));
+  app.get('/loaderio-53e4c4b5efd55b6fe2871cb0260cefb1', (req, res) => res.send('loaderio-53e4c4b5efd55b6fe2871cb0260cefb1'));
+
 
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
