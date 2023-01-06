@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router()
 const controller = require('./controllers');
 
+router.get('/loaderio-2be18b4e7d24c93c08d03c2bef2cb833', (req, res) => res.send('loaderio-2be18b4e7d24c93c08d03c2bef2cb833'));
 router.get('/product/:product_id', controller.products.info)
 router.get('/product/:product_id/styles', controller.products.styles)
 router.get('/product/:product_id/related', controller.products.related)
@@ -14,7 +15,6 @@ router.put('/qa/questions/:question_id/helpful', controller.qa.put.question.help
 router.put('/qa/questions/:question_id/report', controller.qa.put.question.report )
 router.put('/qa/answers/:answer_id/helpful', controller.qa.put.answer.helpful )
 router.put('/qa/answers/:answer_id/report', controller.qa.put.answer.report )
-router.get('/loaderio-2be18b4e7d24c93c08d03c2bef2cb833', (req, res) => res.send('loaderio-2be18b4e7d24c93c08d03c2bef2cb833'));
 
 // router.get('/reviews', controller.reviews.get);
 // router.get('/reviews/meta', controller.reviews.get);
