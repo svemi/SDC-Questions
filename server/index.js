@@ -26,7 +26,9 @@ if (cluster.isPrimary) {
   app.use(express.json());
   // app.use(morgan('dev'));
   app.use(express.urlencoded({ extended: true }));
-  app.get('/loaderio-2be18b4e7d24c93c08d03c2bef2cb833', (req, res) => res.send('loaderio-2be18b4e7d24c93c08d03c2bef2cb833'));
+  app.get(`/loaderio-2be18b4e7d24c93c08d03c2bef2cb833`, (req, res) => {
+    res.send(`loaderio-2be18b4e7d24c93c08d03c2bef2cb833`);
+  });
   app.use('/', router)
   app.use(express.static(path.join(__dirname, '../client/dist')));
 
