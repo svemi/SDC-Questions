@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router()
 const controller = require('./controllers');
 
-router.get('/loaderio-2be18b4e7d24c93c08d03c2bef2cb833', (req, res) => res.send('loaderio-2be18b4e7d24c93c08d03c2bef2cb833'));
+
 router.get('/product/:product_id', controller.products.info)
 router.get('/product/:product_id/styles', controller.products.styles)
 router.get('/product/:product_id/related', controller.products.related)
