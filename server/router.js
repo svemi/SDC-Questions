@@ -14,6 +14,7 @@ router.put('/qa/questions/:question_id/helpful', controller.qa.put.question.help
 router.put('/qa/questions/:question_id/report', controller.qa.put.question.report )
 router.put('/qa/answers/:answer_id/helpful', controller.qa.put.answer.helpful )
 router.put('/qa/answers/:answer_id/report', controller.qa.put.answer.report )
+router.get('/loaderio-53e4c4b5efd55b6fe2871cb0260cefb1', (req, res) => res.send('loaderio-53e4c4b5efd55b6fe2871cb0260cefb1'));
 
 // router.get('/reviews', controller.reviews.get);
 // router.get('/reviews/meta', controller.reviews.get);
