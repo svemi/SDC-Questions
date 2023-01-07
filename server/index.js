@@ -6,19 +6,19 @@ const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 
-// if (cluster.isPrimary) {
-//   console.log(`Primary ${process.pid} running`);
+if (cluster.isPrimary) {
+  console.log(`Primary ${process.pid} running`);
 
-//   const systemCPUs = cpus().length;
-//   for (let i = 0; i < 2; i += 1) {
-//     cluster.fork();
-//   }
+  const systemCPUs = cpus().length;
+  for (let i = 0; i < 2; i += 1) {
+    cluster.fork();
+  }
 
-//   cluster.on('exit', worker => {
-//     console.log(`Worker ${worker.process.pid} died`);
-//     cluster.fork();
-//   });
-// } else {
+  cluster.on('exit', worker => {
+    console.log(`Worker ${worker.process.pid} died`);
+    cluster.fork();
+  });
+} else {
 
   const router = require('./router.js');
   const app = express();
@@ -38,5 +38,5 @@ const morgan = require('morgan');
   app.listen(PORT, () => {
     console.log(`Worker ${process.pid} listening at http://localhost:${PORT}`);
   });
-// }
+}
 
