@@ -1,4 +1,5 @@
 *.map
+.env
 bundle.js
 config.js
 node_modules/
